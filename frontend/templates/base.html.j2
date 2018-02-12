@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ project_title }} - {% block page_title %}{{ page_title }}{% endblock %}{% endblock %}</title>
+
+    {% block styles %}
+        {% compress 'css' %}
+            <link rel="stylesheet" type="text/sass" href="/static/styles/test.sass">
+        {% endcompress %}
+    {% endblock %}
+</head>
+<body>
+<a href="{{ url('index') }}">Index Page</a><br>
+{% block content %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,13 @@
+aiohttp
+cchardet
+aiodns
+graphene
+sqlalchemy
+graphene-sqlalchemy
+pyyaml
+attrs
+trafaret-config
+aiopg
+aiohttp-jinja2
+jac
+aioredis
