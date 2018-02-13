@@ -4,18 +4,54 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{{ project_title }} - {% block page_title %}{{ page_title }}{% endblock %}{% endblock %}</title>
+    <title>{% block title %}{% block page_title %}{{ page_title }}{% endblock %} | {{ project_title }}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/vendor/css/fontawesome-all.css">
 
     {% block styles %}
         {% compress 'css' %}
-            <link rel="stylesheet" type="text/sass" href="/static/styles/test.sass">
+            <link rel="stylesheet" type="text/sass" href="/static/styles/base.sass">
         {% endcompress %}
     {% endblock %}
 </head>
+
 <body>
-<a href="{{ url('index') }}">Index Page</a><br>
-{% block content %}
-{% endblock %}
+<div class="header-background">
+</div>
+
+<div class="main-container">
+    <div class="header">
+        <a href="{{ url('index') }}" class="logo"></a>
+
+        <ul id="main-menu">
+            <li><a href="{{ url('issues') }}">Issues</a></li>
+            <li><a href="{{ url('issues') }}">Test</a></li>
+        </ul>
+
+        <ul id="personal-menu">
+            <li><a href="{{ url('help') }}">Help</a></li>
+            <li><a href="{{ url('sight-out') }}">Sign out</a></li>
+        </ul>
+
+        <div class="clearfix"></div>
+
+        <div class="search-panel">
+            <form action="{{ url('issues') }}">
+                <div class="search-input-continer">
+                    <i class="fas fa-search" id="search-panel-icon"></i>
+                    <input id="search-panel-input" type="text" name="q" title="search"
+                           placeholder="Enter search request"/>
+                    <span id="search-panel-input-clear-link">&times;</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="content-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
 
 {% block js %}
 {% endblock %}

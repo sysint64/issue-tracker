@@ -1,0 +1,84 @@
+@import "consts"
+
+body
+    font-family: "Helvetica Neue", arial, sans-serif
+    padding: 0
+    margin: 0
+
+.clearfix
+    clear: both
+
+.main-container
+    max-width: 1170px
+    min-width: 1060px
+    margin: auto
+
+.header-background
+    position: absolute
+    background: linear-gradient(rgb(226, 226, 226), rgba(255, 255, 255, 0))
+    height: 200px
+    width: 100%
+    z-index: -1
+
+a
+    color: $color_link
+    text-decoration: none
+
+    &:hover
+        color: $color_link_href
+
+#main-menu
+    list-style-type: none
+    margin: 0
+    padding: 16px 0 0
+
+    li
+        display: block
+        float: left
+        margin-right: 15px
+
+#personal-menu
+    padding: 0
+    margin: 0
+    float: right
+    list-style-type: none
+
+    li
+        display: block
+        float: left
+        margin-left: 15px
+
+.search-panel
+    background: linear-gradient(rgb(235, 114, 101), rgb(218, 82, 65))
+    border: 1px solid #b90d00
+    padding: 5px
+    margin-top: 16px
+    border-radius: 4px
+    box-sizing: border-box
+    position: relative
+    box-shadow: 0 1px 3px 0 rgba(141, 10, 0, 0.4), inset 1px 1px 0 0 rgba(255, 255, 255, 0.3)
+
+    #search-panel-input
+        width: 100%
+        background: #fff
+        box-sizing: border-box
+        font-family: monospace, Monaco, Consolas, "Lucida Console", "Courier New"
+        box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4)
+        border: 1px solid #b94738
+        padding: 4px 4px 4px 28px
+
+    #search-panel-input-clear-link
+        position: absolute
+        right: 16px
+        top: 10px
+        cursor: pointer
+        opacity: 0.6
+        display: none
+
+    #search-panel-icon
+        position: absolute
+        top: 11px
+        left: 12px
+        opacity: 0.4
+        font-size: 14px
+

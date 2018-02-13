@@ -11,3 +11,8 @@ aiopg
 aiohttp-jinja2
 jac
 aioredis
+aiohttp-devtools
+aiohttp-debugtoolbar
+aiohttp_security
+aiohttp-session
+uvloop
