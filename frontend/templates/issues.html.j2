@@ -1,4 +1,3 @@
-<!--suppress HtmlFormInputWithoutLabel -->
 {% extends "base.html.j2" %}
 
 {% block styles %}
@@ -21,17 +20,24 @@
 
     <div class="issues-content">
         <div class="header">
-            <input type="checkbox" id="issues-checkbox-all-item">
+{#            <input type="checkbox" id="issues-checkbox-all-item">#}
         </div>
 
         {% for issue in issues %}
             <div class="item">
                 <label><input type="checkbox" id="issues-item-checkbox-{{ issue.id }}"></label>
-                <a href="" class="id">{{ issue.id }}</a> <a href="" class="name">{{ issue.name }}</a>
+                <a href="" class="id">IT-{{ issue.id }}</a>
+                <a href="{{ url("issue", id=12) }}" class="name">{{ issue.name }}</a>
                 <span class="author">{{ issue.author.name }}</span>
 
                 <div class="datetime">
                     {{ issue.datetime }}
+                </div>
+
+                <div class="tags">
+                    {% for tag in issue.tags %}
+                        <a href="?q=tag:{{ tag }}">{{ tag }}</a>
+                    {% endfor %}
                 </div>
             </div>
         {% endfor %}

@@ -15,5 +15,6 @@ def setup_routes(app):
     app.router.add_get('/', index, name="index")
     app.router.add_get('/ws', views.websocket_handler, name="ws")
     app.router.add_get('/issues', views.issues, name="issues")
+    app.router.add_get('/issues/{id}', views.issue, name="issue")
     app.router.add_get('/help', views.help, name="help")
     app.router.add_get('/sight-out', views.sight_out, name="sight-out")

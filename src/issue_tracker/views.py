@@ -9,6 +9,66 @@ async def issues(request):
         "page_title": "Issues",
         "issues": [
             {
+                "id": "1",
+                "name": "План 1",
+                "status": "ok",
+                "datetime": "17:54",
+                "author": {
+                    "name": "Andrey Kabylin",
+                },
+                "tags": [
+                    "security",
+                    "performance"
+                ],
+                "history": [
+                    {
+                        "action": "Updated",
+                        "author": {
+                            "name": "Andrey Kabylin",
+                        },
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "name": "План 2",
+                "datetime": "07 Dec 17",
+                "status": "rejected",
+                "tags": [
+                    "documents"
+                ],
+                "author": {
+                    "name": "Yara Stafievskaya",
+                }
+            },
+            {
+                "id": "3",
+                "name": "План 3",
+                "datetime": "23 Jan",
+                "status": "rejected",
+                "tags": [
+                    "server"
+                ],
+                "author": {
+                    "name": "Yara Stafievskaya",
+                }
+            }
+        ],
+        "projects": [
+            {
+                "name": "AppCode",
+                "count": 120
+            }
+        ],
+    }
+
+
+@aiohttp_jinja2.template("issue.html.j2")
+async def issue(request):
+    return {
+        "page_title": "План 12",
+        "issues": [
+            {
                 "id": "PLAN-1",
                 "name": "План 1",
                 "status": "ok",
