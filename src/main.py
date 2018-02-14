@@ -8,10 +8,13 @@ import jinja2
 import aiohttp_jinja2
 from jac import CompressorExtension
 import aiohttp_debugtoolbar
+import asyncio
 
 
-app = web.Application()
+loop = asyncio.get_event_loop()
+app = web.Application(loop=loop)
 aiohttp_debugtoolbar.setup(app)
+
 setup_routes(app)
 setup_static_routes(app)
 

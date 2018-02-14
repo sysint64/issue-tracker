@@ -13,6 +13,7 @@ def setup_static_routes(app):
 
 def setup_routes(app):
     app.router.add_get('/', index, name="index")
-    app.router.add_get('/issues/', views.issues, name="issues")
-    app.router.add_get('/help/', views.help, name="help")
-    app.router.add_get('/sight-out/', views.sight_out, name="sight-out")
+    app.router.add_get('/ws', views.websocket_handler, name="ws")
+    app.router.add_get('/issues', views.issues, name="issues")
+    app.router.add_get('/help', views.help, name="help")
+    app.router.add_get('/sight-out', views.sight_out, name="sight-out")

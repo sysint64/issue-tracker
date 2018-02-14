@@ -1,16 +1,39 @@
+<!--suppress HtmlFormInputWithoutLabel -->
 {% extends "base.html.j2" %}
 
 {% block styles %}
+    {{ super() }}
+
     {% compress 'css' %}
-        <link rel="stylesheet" type="text/sass" href="/static/styles/base.sass">
         <link rel="stylesheet" type="text/sass" href="/static/styles/issues.sass">
     {% endcompress %}
 {% endblock %}
 
-<div class="issues-left-panel">
-</div>
+{% block js %}
+    {{ super() }}
+    <script src="/static/js/selector.js" charset="utf-8"></script>
+    <script src="/static/js/issues.js" charset="utf-8"></script>
+{% endblock %}
 
-<div class="issues-content">
-    {% for issue in issues %}
-    {% endfor %}
-</div>
+{% block content %}
+    <div class="issues-left-panel">
+    </div>
+
+    <div class="issues-content">
+        <div class="header">
+            <input type="checkbox" id="issues-checkbox-all-item">
+        </div>
+
+        {% for issue in issues %}
+            <div class="item">
+                <label><input type="checkbox" id="issues-item-checkbox-{{ issue.id }}"></label>
+                <a href="" class="id">{{ issue.id }}</a> <a href="" class="name">{{ issue.name }}</a>
+                <span class="author">{{ issue.author.name }}</span>
+
+                <div class="datetime">
+                    {{ issue.datetime }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

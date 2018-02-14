@@ -1,0 +1,62 @@
+@import "consts"
+
+input[type=checkbox]:not(old)
+    padding: 0
+    font-size: 1em
+    opacity: 0
+    margin: 0
+
+label
+    position: relative
+
+    &:before
+        display: block
+        position: absolute
+        top: 3px
+        left: 0
+        width: 11px
+        height: 11px
+        border: 1px solid #c8c8c8
+        content: " "
+        color: #797979
+        font-size: 12px
+        line-height: 1
+        border-radius: 2px
+        background: #fff
+
+    //noinspection CssNoGenericFontName
+    &.checked:before
+        content: "\f00c"
+        font-family: FontAwesome
+        border-color: $color_primary
+        line-height: 10px
+        font-size: 11px
+
+.issues-content
+    .item
+        padding: 8px 20px
+        border-bottom: 1px solid #ccc
+
+        &.active
+            box-shadow: 0 1px 3px 0 rgba(218, 82, 65, 0.2), inset 1px 1px 0 0 $color_primary, inset -1px -1px 0 0 $color_primary
+
+        a.id, a.name
+            margin: 6px
+            font-size: 14px
+
+        .author
+            color: #888
+            font-size: 14px
+            display: inline-block
+            border-left: 1px solid #aaa
+            padding-left: 7px
+
+    .datetime
+        float: right
+        font-size: 12px
+        color: #666
+        margin-top: 4px
+
+    .header
+        margin-top: 16px
+        border-bottom: 1px solid #ccc
