@@ -54,12 +54,72 @@ async def issues(request):
                 }
             }
         ],
-        "projects": [
+        "filters": [
             {
-                "name": "AppCode",
-                "count": 120
+                "name": "Tags",
+                "count": 4,
+                "fields_type": "links",
+                "addable": True,
+                "children": [
+                    {
+                        "name": "Security",
+                    },
+                    {
+                        "name": "Performance",
+                    },
+                    {
+                        "name": "Documents",
+                    },
+                    {
+                        "name": "Server",
+                    }
+                ]
+            },
+            {
+                "name": "Departments",
+                "count": 4,
+                "fields_type": "links",
+                "addable": True,
+                "children": [
+                    {
+                        "name": "IT",
+                    },
+                    {
+                        "name": "Security",
+                    },
+                    {
+                        "name": "System administration",
+                    },
+                    {
+                        "name": "Testing",
+                    }
+                ]
+            },
+            {
+                "name": "Filters",
+                "children": [
+                    {
+                        "name": "Tags",
+                        "fields_type": "checkboxes",
+                        "addable": False,
+                        "children": [
+                            {
+                                "name": "Security",
+                            },
+                            {
+                                "name": "Performance",
+                            },
+                            {
+                                "name": "Documents",
+                            },
+                            {
+                                "name": "Server",
+                            }
+                        ]
+                    }
+                ]
             }
-        ],
+        ]
     }
 
 

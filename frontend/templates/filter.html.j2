@@ -1,0 +1,61 @@
+{% import "macro/icons.j2" as icons %}
+
+{% macro link_field(field) %}
+    <li class="filter-field">
+        <span class="icon"></span>
+        <span class="title">{{ field.name }}</span>
+    </li>
+{% endmacro %}
+
+{% macro checkbox_field(field) %}
+    <li class="filter-field">
+        <label>
+            <input type="checkbox">
+            <span class="title">{{ field.name }}</span>
+        </label>
+    </li>
+{% endmacro %}
+
+{% macro render_field(field, field_type) %}
+    {% if field_type == "links" %}
+        {{ link_field(field) }}
+    {% elif field_type == "checkboxes" %}
+        {{ checkbox_field(field) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro render(children, depth=1, fields_type="links") %}
+    {% if fields_type is none %}
+        {% set fields_type = "links" %}
+    {% endif %}
+
+    {% for filter_item in children %}
+        {% if filter_item.children %}
+            <div class="filter-panel">
+                {% if depth > 1 %}
+                    <div class="filter-expand-list-action expand">
+                        <div class="vertical"></div>
+                        <div class="horizontal"></div>
+                    </div>
+                {% else %}
+                    <i class="fas fa-caret-down"></i>
+                {% endif %}
+
+                <span class="">
+                    {{ filter_item.name }}
+                    {% if filter_item.count and filter_item.count > 0 %}
+                        <sup>{{ filter_item.count }}</sup>
+                    {% endif %}
+                </span>
+                {% if filter_item.addable %}{{ icons.plus_circle(class="filter-add-action") }}{% endif %}
+            </div>
+
+            <ul>
+                {% set depth = depth + 1 %}
+                {{ render(filter_item.children, depth, filter_item.fields_type) }}
+            </ul>
+        {% else %}
+            {{ render_field(filter_item, fields_type) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

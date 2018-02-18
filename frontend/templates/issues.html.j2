@@ -1,4 +1,6 @@
 {% extends "base.html.j2" %}
+{% import "macro/icons.j2" as icons %}
+{% import "filter.html.j2" as filter %}
 
 {% block styles %}
     {{ super() }}
@@ -15,31 +17,34 @@
 {% endblock %}
 
 {% block content %}
-    <div class="issues-left-panel">
-    </div>
+    <div class="flex-container">
+        <div class="issues-content">
+            <div class="header">
+                {#            <input type="checkbox" id="issues-checkbox-all-item">#}
+            </div>
 
-    <div class="issues-content">
-        <div class="header">
-{#            <input type="checkbox" id="issues-checkbox-all-item">#}
+            {% for issue in issues %}
+                <div class="item">
+                    <label><input type="checkbox" id="issues-item-checkbox-{{ issue.id }}"></label>
+                    <a href="" class="id">IT-{{ issue.id }}</a>
+                    <a href="{{ url("issue", id=12) }}" class="name">{{ issue.name }}</a>
+                    <span class="author">{{ issue.author.name }}</span>
+
+                    <div class="datetime">
+                        {{ issue.datetime }}
+                    </div>
+
+                    <div class="tags">
+                        {% for tag in issue.tags %}
+                            <a href="?q=tag:{{ tag }}">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
 
-        {% for issue in issues %}
-            <div class="item">
-                <label><input type="checkbox" id="issues-item-checkbox-{{ issue.id }}"></label>
-                <a href="" class="id">IT-{{ issue.id }}</a>
-                <a href="{{ url("issue", id=12) }}" class="name">{{ issue.name }}</a>
-                <span class="author">{{ issue.author.name }}</span>
-
-                <div class="datetime">
-                    {{ issue.datetime }}
-                </div>
-
-                <div class="tags">
-                    {% for tag in issue.tags %}
-                        <a href="?q=tag:{{ tag }}">{{ tag }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
+        <div class="issues-filter-panels">
+            {{ filter.render(filters) }}
+        </div>
     </div>
 {% endblock %}
