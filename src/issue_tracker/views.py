@@ -2,9 +2,7 @@ import aiohttp
 from aiohttp import web
 import aiohttp_jinja2
 
-
-async def items(async_generator):
-    return [item async for item in async_generator]
+from issue_tracker.repository import items
 
 
 @aiohttp_jinja2.template("issues.html.j2")
@@ -80,79 +78,6 @@ async def issues(request):
                 }
             ]
         }
-
-    # async with request.app['db'].acquire() as conn:
-    #     async with conn.cursor() as cursor:
-    #         return {
-    #             "page_title": "Issues",
-    #             "issues": await items(repository.fetch_issues(cursor)),
-    #             "filters": [
-    #                 {
-    #                     "name": "Tags",
-    #                     "count": 4,
-    #                     "fields_type": "links",
-    #                     "addable": True,
-    #                     "children": [
-    #                         {
-    #                             "name": "Security",
-    #                         },
-    #                         {
-    #                             "name": "Performance",
-    #                         },
-    #                         {
-    #                             "name": "Documents",
-    #                         },
-    #                         {
-    #                             "name": "Server",
-    #                         }
-    #                     ]
-    #                 },
-    #                 {
-    #                     "name": "Departments",
-    #                     "count": 4,
-    #                     "fields_type": "links",
-    #                     "addable": True,
-    #                     "children": [
-    #                         {
-    #                             "name": "IT",
-    #                         },
-    #                         {
-    #                             "name": "Security",
-    #                         },
-    #                         {
-    #                             "name": "System administration",
-    #                         },
-    #                         {
-    #                             "name": "Testing",
-    #                         }
-    #                     ]
-    #                 },
-    #                 {
-    #                     "name": "Filters",
-    #                     "children": [
-    #                         {
-    #                             "name": "Tags",
-    #                             "fields_type": "checkboxes",
-    #                             "addable": False,
-    #                             "children": [
-    #                                 {
-    #                                     "name": "Security",
-    #                                 },
-    #                                 {
-    #                                     "name": "Performance",
-    #                                 },
-    #                                 {
-    #                                     "name": "Documents",
-    #                                 },
-    #                                 {
-    #                                     "name": "Server",
-    #                                 }
-    #                             ]
-    #                         }
-    #                     ]
-    #                 }
-    #             ]
-    #         }
 
 
 @aiohttp_jinja2.template("issue.html.j2")
