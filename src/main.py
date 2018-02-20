@@ -2,6 +2,7 @@ from aiohttp import web
 
 import context_processors
 from db import init_pg, close_pg
+from issue_tracker.repository import Repository
 from routes import setup_routes, setup_static_routes
 
 import jinja2
@@ -28,6 +29,13 @@ app["config"] = {
 
 app.on_startup.append(init_pg)
 app.on_cleanup.append(close_pg)
+
+
+def create_repository_context():
+    return Repository(app)
+
+
+app.connect_repository = create_repository_context
 
 setup_routes(app)
 setup_static_routes(app)
