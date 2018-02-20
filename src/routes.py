@@ -4,10 +4,10 @@ from views import index
 
 def setup_static_routes(app):
     app.router.add_static('/static-compress/',
-                          path="/home/andrey/projects/issue_tracker/var/static",
+                          path="/home/andrey/projects/issue-tracker/var/static",
                           name='static-compress')
     app.router.add_static('/static/',
-                          path="/home/andrey/projects/issue_tracker/frontend/static",
+                          path="/home/andrey/projects/issue-tracker/frontend/static",
                           name='static')
 
 

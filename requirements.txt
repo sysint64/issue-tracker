@@ -16,3 +16,4 @@ aiohttp-debugtoolbar
 aiohttp_security
 aiohttp-session
 uvloop
+libsass

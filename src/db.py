@@ -31,18 +31,22 @@ choice = sa.Table(
 
 
 async def init_pg(app):
-    conf = app['config']['postgres']
-    engine = await aiopg.sa.create_engine(
-        database=conf['database'],
-        user=conf['user'],
-        password=conf['password'],
-        host=conf['host'],
-        port=conf['port'],
-        minsize=conf['minsize'],
-        maxsize=conf['maxsize'],
-        loop=app.loop
-    )
-    app['db'] = engine
+    c = app['config']['postgres']
+    dsn = f"dbname={c['database']} user={c['user']} password={c['password']} host={c['host']}"
+
+    app['db'] = await aiopg.create_pool(dsn)
+
+    # engine = await aiopg.sa.create_engine(
+    #     database=conf['database'],
+    #     user=conf['user'],
+    #     password=conf['password'],
+    #     host=conf['host'],
+    #     port=conf['port'],
+    #     minsize=conf['minsize'],
+    #     maxsize=conf['maxsize'],
+    #     loop=app.loop
+    # )
+    # app['db'] = engine
 
 
 async def close_pg(app):
