@@ -14,14 +14,26 @@ VALUES ('swstr_master@rambler.ru', crypt('qwerty', gen_salt('bf', 8)), 1, 'Yara'
 
 SELECT * FROM users WHERE email = 'andrey@kabylin.ru' AND passwd = crypt('123321', passwd);
 
+-- Insert tags
+INSERT INTO "tags" (name) VALUES ('security');
+INSERT INTO "tags" (name) VALUES ('performance');
+INSERT INTO "tags" (name) VALUES ('documents');
+INSERT INTO "tags" (name) VALUES ('server');
+
 -- Insert issues
-INSERT INTO "issues" (author_user_id, name, pub_date, tags)
-VALUES (1, 'План 1', now(), 'security,performance');
+INSERT INTO "issues" (author_user_id, name, pub_date)
+VALUES (1, 'План 1', now());
 
-INSERT INTO "issues" (author_user_id, name, pub_date, tags)
-VALUES (2, 'План 2', now(), 'documents');
+INSERT INTO "issues" (author_user_id, name, pub_date)
+VALUES (2, 'План 2', now());
 
-INSERT INTO "issues" (author_user_id, name, pub_date, tags)
-VALUES (2, 'План 3', now(), 'server');
+INSERT INTO "issues" (author_user_id, name, pub_date)
+VALUES (2, 'План 3', now());
+
+-- Relations
+INSERT INTO "tags_issues" (tag_id, issues_id) VALUES (1, 1);
+INSERT INTO "tags_issues" (tag_id, issues_id) VALUES (2, 1);
+INSERT INTO "tags_issues" (tag_id, issues_id) VALUES (3, 2);
+INSERT INTO "tags_issues" (tag_id, issues_id) VALUES (4, 3);
 
 COMMIT;
