@@ -6,13 +6,20 @@ async def items(async_generator):
 
 
 class Repository(PostgresqlRepository):
-    async def fetch_tags(self):
-        await self.cursor.execute("SELECT name FROM tags")
+    async def tags_count(self):
+        await self.cursor.execute("SELECT COUNT(*) FROM tags")
+        return (await self.cursor.fetchone())[0]
+
+    async def tags(self):
+        await self.cursor.execute("SELECT id, name FROM tags")
 
         async for row in self.cursor:
-            yield row[0]
+            yield {
+                "id": row[0],
+                "name": row[1]
+            }
 
-    async def fetch_issues(self):
+    async def issues(self):
         await self.cursor.execute("""
             SELECT
               issues.id AS id,
@@ -29,6 +36,7 @@ class Repository(PostgresqlRepository):
             ORDER BY issues.pub_date DESC
         """)
 
+        # Так мы можем легко менять порядок
         issues_id, name_id, pub_date_id, author_id, author_name, tags = 0, 1, 2, 3, 4, 5
 
         async for row in self.cursor:

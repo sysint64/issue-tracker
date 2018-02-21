@@ -8,29 +8,19 @@ from issue_tracker.repository import items
 @aiohttp_jinja2.template("issues.html.j2")
 async def issues(request):
     async with request.app.connect_repository() as repository:
+        tags = [{"name": tag["name"].capitalize()} async for tag in repository.tags()]
+        tags_length = await repository.tags_count()
+
         return {
             "page_title": "Issues",
-            "issues": await items(repository.fetch_issues()),
+            "issues": await items(repository.issues()),
             "filters": [
                 {
                     "name": "Tags",
-                    "count": 4,
+                    "count": tags_length,
                     "fields_type": "links",
                     "addable": True,
-                    "children": [
-                        {
-                            "name": "Security",
-                        },
-                        {
-                            "name": "Performance",
-                        },
-                        {
-                            "name": "Documents",
-                        },
-                        {
-                            "name": "Server",
-                        }
-                    ]
+                    "children": tags
                 },
                 {
                     "name": "Departments",
@@ -59,20 +49,7 @@ async def issues(request):
                             "name": "Tags",
                             "fields_type": "checkboxes",
                             "addable": False,
-                            "children": [
-                                {
-                                    "name": "Security",
-                                },
-                                {
-                                    "name": "Performance",
-                                },
-                                {
-                                    "name": "Documents",
-                                },
-                                {
-                                    "name": "Server",
-                                }
-                            ]
+                            "children": tags
                         }
                     ]
                 }
@@ -83,50 +60,7 @@ async def issues(request):
 @aiohttp_jinja2.template("issue.html.j2")
 async def issue(request):
     return {
-        "page_title": "План 12",
-        "issues": [
-            {
-                "id": "PLAN-1",
-                "name": "План 1",
-                "status": "ok",
-                "datetime": "17:54",
-                "author": {
-                    "name": "Andrey Kabylin",
-                },
-                "history": [
-                    {
-                        "action": "Updated",
-                        "author": {
-                            "name": "Andrey Kabylin",
-                        },
-                    }
-                ]
-            },
-            {
-                "id": "PLAN-2",
-                "name": "План 2",
-                "datetime": "07 Dec 17",
-                "status": "rejected",
-                "author": {
-                    "name": "Yara Stafievskaya",
-                }
-            },
-            {
-                "id": "PLAN-3",
-                "name": "План 3",
-                "datetime": "23 Jan",
-                "status": "rejected",
-                "author": {
-                    "name": "Yara Stafievskaya",
-                }
-            }
-        ],
-        "projects": [
-            {
-                "name": "AppCode",
-                "count": 120
-            }
-        ],
+        "page_title": "План 12"
     }
 
 

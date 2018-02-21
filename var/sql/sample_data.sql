@@ -19,6 +19,7 @@ INSERT INTO "tags" (name) VALUES ('security');
 INSERT INTO "tags" (name) VALUES ('performance');
 INSERT INTO "tags" (name) VALUES ('documents');
 INSERT INTO "tags" (name) VALUES ('server');
+INSERT INTO "tags" (name) VALUES ('cryptography');
 
 -- Insert issues
 INSERT INTO "issues" (author_user_id, name, pub_date)
