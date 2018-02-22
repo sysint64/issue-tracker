@@ -1,4 +1,4 @@
-SET ROLE issues_tracker;
+SET ROLE issue_tracker;
 
 BEGIN;
 

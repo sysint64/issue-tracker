@@ -12,24 +12,20 @@ class Widget:
 class TextWidget(Widget):
     def render(self, field):
         return f"""
-            <div>
             <label>
                 <b>{field["label"]}</b><br>
                 <input type="text" id={field["id"]} name="{field["name"]}" value="{field["value"]}">
             </label>
-            </div>
         """
 
 
 class TextAreaWidget(Widget):
     def render(self, field):
         return f"""
-            <div>
             <label>
                 <b>{field["label"]}</b><br>
                 <textarea type="text" id={field["id"]} name="{field["name"]}">{field["value"]}</textarea>
             </label>
-            </div>
         """
 
 
@@ -54,34 +50,70 @@ class RequireValidator(Validator):
     pass
 
 
-def render(request, field):
-    return field["widget"]().render(field)
+def render_functor(form):
+    def _render(request, field):
+        widget = field["widget"]()
+
+        if "decorator" in field:
+            return field["decorator"].render(widget, field)
+
+        if "form.decorator" in form:
+            return form["form.decorator"].render(widget, field)
+
+        return widget.render(field)
+
+    return _render
+
+
+def fields(form):
+    for key in form.keys():
+        if key[0:5] == "form.":
+            continue
+
+        field = form[key]
+
+        if "id" not in field:
+            field["id"] = key
+
+        if "name" not in field:
+            field["name"] = key
+
+        if "label" not in field:
+            field["label"] = key.capitalize()
+
+        if "value" not in field:
+            field["value"] = ""
+
+        field["render"] = render_functor(form)
+        yield field
+
+
+class DivDecorator:
+    def __init__(self, css_class=""):
+        self.css_class = css_class
+
+    def render(self, widget, field):
+        return f'<div class="{self.css_class}">{widget.render(field)}</div>'
 
 
 @aiohttp_jinja2.template("issues_create.html.j2")
 def issues_create(request):
     form = {
+        "form.decorator": DivDecorator(css_class="form-field"),
+        "form.field_prefix": "create_issues.",
         "name": {
-            "value": "",
-            "id": "name",
-            "name": "name",
             "widget": TextWidget,
-            "label": "Name",
-            "validators": [RequireValidator],
-            "render": render
+            "validators": [RequireValidator]
         },
         "desc": {
-            "value": "",
-            "id": "desc",
-            "name": "desc",
+            "decorator": DivDecorator(css_class="desc-form-field"),
             "widget": TextAreaWidget,
             "label": "Description",
-            "render": render
         },
         # "items": {
-        #     "field": MultipleFieldsWidget,
+        #     "widget": MultipleFieldsWidget,
         #     "label": "Content",
-        #     "extras": 0,
+        #     "extras": 1,
         #     "fields": {
         #         "name": {
         #             "field": TextWidget,
@@ -94,11 +126,6 @@ def issues_create(request):
         #     }
         # }
     }
-
-    def fields(fields):
-        for key in fields.keys():
-            field = fields[key]
-            yield field
 
     output = {
         "errors": ["Some error"],

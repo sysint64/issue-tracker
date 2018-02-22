@@ -5,10 +5,10 @@ from issue_tracker.views import actions as actions_views
 
 def setup_static_routes(app):
     app.router.add_static('/static-compress/',
-                          path="/home/adkb/projects/issue-tracker/var/static",
+                          path="/home/andrey/projects/issue-tracker/var/static",
                           name='static-compress')
     app.router.add_static('/static/',
-                          path="/home/adkb/projects/issue-tracker/frontend/static",
+                          path="/home/andrey/projects/issue-tracker/frontend/static",
                           name='static')
 
 
