@@ -17,8 +17,8 @@ aiohttp_debugtoolbar.setup(app)
 
 app["config"] = {
     "postgres": {
-        "database": "issue_tracker",
-        "user": "issue_tracker",
+        "database": "issues_tracker",
+        "user": "issues_tracker",
         "password": "123321",
         "host": "localhost",
         "port": 5432,
@@ -46,13 +46,13 @@ aiohttp_jinja2.setup(
         context_processors.project_info_processor,
         aiohttp_jinja2.request_processor
     ],
-    loader=jinja2.FileSystemLoader("/home/andrey/projects/issue-tracker/frontend/templates/"),
+    loader=jinja2.FileSystemLoader("/home/adkb/projects/issue-tracker/frontend/templates/"),
     extensions=[CompressorExtension]
 )
 
-app[aiohttp_jinja2.APP_KEY].compressor_output_dir = '/home/andrey/projects/issue-tracker/var/static'
+app[aiohttp_jinja2.APP_KEY].compressor_output_dir = '/home/adkb/projects/issue-tracker/var/static'
 app[aiohttp_jinja2.APP_KEY].compressor_static_prefix = '/static-compress'
 app[
-    aiohttp_jinja2.APP_KEY].compressor_source_dirs = '/home/andrey/projects/issue-tracker/frontend/static'
+    aiohttp_jinja2.APP_KEY].compressor_source_dirs = '/home/adkb/projects/issue-tracker/frontend/static'
 
 web.run_app(app, host='127.0.0.1', port=12345)

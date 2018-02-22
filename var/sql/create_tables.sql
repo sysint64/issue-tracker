@@ -1,4 +1,4 @@
-SET ROLE issue_tracker;
+SET ROLE issues_tracker;
 
 BEGIN;
 
@@ -31,6 +31,13 @@ CREATE TABLE "issues" (
   "author_user_id" INTEGER NOT NULL REFERENCES "users" ("id") ON DELETE CASCADE,
   "name" VARCHAR(60) NOT NULL,
   "pub_date" TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE TABLE "issue_plan_item" (
+  "id" SERIAL NOT NULL PRIMARY KEY,
+  "parent_issue_id" INTEGER REFERENCES "issues" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  "title" VARCHAR(60) NOT NULL,
+  "content" TEXT NOT NULL
 );
 
 -- Many to Many
