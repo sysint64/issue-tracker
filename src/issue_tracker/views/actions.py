@@ -3,66 +3,42 @@ from issue_tracker.forms import *
 
 
 @aiohttp_jinja2.template("issues_create.html.j2")
-def issues_create(request):
-    form = {
+async def issues_create(request):
+    form_declaration = {
         "form.decorator": DivFieldDecorator(css_class="form-field"),
         "form.field_prefix": "create_issues.",
         "name": {
             "widget": TextWidget,
-            "validators": [RequireValidator]
+            "validators": [RequireValidator],
         },
         "desc": {
             "decorator": DivFieldDecorator(css_class="desc-form-field"),
             "widget": TextAreaWidget,
             "label": "Description",
         },
-        # "items": {
-        #     "widget": MultipleFieldsWidget,
-        #     "label": "Content",
-        #     "extras": 1,
-        #     "fields": {
-        #         "name": {
-        #             "field": TextWidget,
-        #             "validators": [RequireValidator]
-        #         },
-        #         "desc": {
-        #             "field": TextAreaWidget,
-        #             "validators": [RequireValidator]
-        #         }
-        #     }
-        # }
+        "items": {
+            "widget": MultipleFieldsWidget,
+            "label": "Content",
+            "extra": 2,
+            "fields": {
+                "name": {
+                    "widget": TextWidget,
+                    "validators": [RequireValidator]
+                },
+                "desc": {
+                    "widget": TextAreaWidget,
+                    "validators": [RequireValidator]
+                }
+            }
+        }
     }
 
-    output = {
-        "errors": ["Some error"],
-        "name": {
-            "errors": ["This field is required"],
-            "value": ""
-        },
-        "desc": {
-            "value": "Some interesting desc"
-        },
-        "items": [
-            {
-                "name": {
-                    "value": "Test"
-                },
-                "desc": {
-                    "value": "Lolipop"
-                }
-            },
-            {
-                "name": {
-                    "value": "Test"
-                },
-                "desc": {
-                    "value": "Lolipop"
-                }
-            },
-        ]
-    }
+    data = await request.post()
+    form = Form(form_declaration, data)
+
+    form.is_valid()
 
     return {
         "page_title": "Create issue",
-        "form": fields(form),
+        "form": form,
     }

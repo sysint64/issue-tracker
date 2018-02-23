@@ -6,8 +6,7 @@
         {% for field in form %}
             {{ field.render(request, field)|safe }}
         {% endfor %}
-{#        <label><b>Name</b><br><input type="text"></label>#}
-{#        <h2></h2>#}
-        <input type="submit">
+
+        <input type="submit" value="Create issue">
     </form>
 {% endblock %}
